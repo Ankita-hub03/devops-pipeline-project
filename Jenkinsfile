@@ -23,14 +23,12 @@ pipeline {
             }
         }
         stage('Docker Deploy') {
-            steps {
-                echo 'Stopping existing container if running...'
-                sh 'docker stop devops-app-container || true'
-                sh 'docker rm devops-app-container || true'
+                    steps {
+                        echo 'Stopping existing container if running...'
+                        sh 'docker stop devops-app-container || true'
+                        sh 'docker rm devops-app-container || true'
 
-                echo 'Launching new application container on port 8081...'
-                sh 'docker run -d -p 8081:8081 --name devops-app-container devops-project'
-            }
-        }
-    }
-}
+                        echo 'Launching new application container on port 8081 mapped to internal 8080...'
+                        sh 'docker run -d -p 8081:8080 --name devops-app-container devops-project'
+                    }
+                }
