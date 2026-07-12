@@ -29,7 +29,7 @@ pipeline {
                 sh 'docker rm devops-app-container || true'
 
                 echo 'Launching new application container on port 8081...'
-                sh 'docker run -d -p 8081:8080 --name devops-app-container devops-project'
+               sh 'docker run -d -p 8081:8081 --name devops-app-container devops-project'
             }
         }
     }

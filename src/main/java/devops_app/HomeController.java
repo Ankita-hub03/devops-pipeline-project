@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "CI/CD Pipeline Working Successfully!";
+        return "Deployment Triggered Automatically!";
     }
 }
