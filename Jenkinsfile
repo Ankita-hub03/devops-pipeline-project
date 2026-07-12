@@ -16,10 +16,16 @@ pipeline {
                 sh './mvnw clean package'
             }
         }
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building Docker Image on EC2 Server...'
-                sh 'docker build -t devops-project .'
+                echo 'Building Docker Image...'
+                sh 'docker build -t ankitakapat/devops-project:latest .'
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                echo 'Pushing image to Docker Hub...'
+                sh 'docker push ankitakapat/devops-project:latest'
             }
         }
         stage('Docker Deploy') {
@@ -28,8 +34,8 @@ pipeline {
                 sh 'docker stop devops-app-container || true'
                 sh 'docker rm devops-app-container || true'
 
-                echo 'Launching new application container on port 8081...'
-               sh 'docker run -d -p 8081:8081 --name devops-app-container devops-project'
+                echo 'Launching container using the Docker Hub image...'
+                sh 'docker run -d -p 8081:8081 --name devops-app-container ankitakapat/devops-project:latest'
             }
         }
     }
