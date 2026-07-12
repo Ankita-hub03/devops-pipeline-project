@@ -22,5 +22,15 @@ pipeline {
                 sh 'docker build -t devops-project .'
             }
         }
+        stage('Docker Deploy') {
+            steps {
+                echo 'Stopping existing container if running...'
+                sh 'docker stop devops-app-container || true'
+                sh 'docker rm devops-app-container || true'
+
+                echo 'Launching new application container on port 8081...'
+                sh 'docker run -d -p 8081:8081 --name devops-app-container devops-project'
+            }
+        }
     }
 }
