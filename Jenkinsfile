@@ -13,5 +13,11 @@ pipeline {
                 sh './mvnw clean package'
             }
         }
+        stage('Docker Build') {
+            steps {
+                echo 'Building Docker Image on EC2 Server...'
+                sh 'docker build -t devops-project .'
+            }
+        }
     }
 }
