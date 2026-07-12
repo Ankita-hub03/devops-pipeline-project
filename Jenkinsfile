@@ -10,7 +10,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 echo 'Building application using Maven wrapper...'
-                bat '.\mvnw clean package'
+                sh './mvnw clean package'
             }
         }
     }
